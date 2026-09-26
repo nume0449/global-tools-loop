@@ -1,0 +1,35 @@
+name: Claude Code
+
+# Mention-triggered build/fix step. This is the ONLY workflow allowed to
+# write extension code. It runs as a normal PR — nothing auto-merges here;
+# branch protection (set up by hand once, see README section 2) requires
+# CI to pass before merge, and a human/claude-code-action reviewer approves.
+on:
+  issues:
+    types: [opened, labeled]
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+
+jobs:
+  claude:
+    if: >
+      contains(github.event.issue.labels.*.name, 'loop-decision') ||
+      contains(github.event.comment.body, '@claude')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Keep the agent inside this repo's contract: read
+          # closed-loop-design.md and loop/judge-rules.json before acting,
+          # never touch store.json's web_store_id by hand-edit (only the
+          # human sets it after first manual submission), never add
+          # extensions beyond loop/judge-rules.json's weekly cap.

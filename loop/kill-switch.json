@@ -1,0 +1,4 @@
+{
+  "enabled": true,
+  "_comment": "Set enabled to false and push to main to stop all scheduled workflows (measure-and-judge, publish-extension). Every scheduled workflow checks this file first."
+}

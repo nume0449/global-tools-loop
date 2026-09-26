@@ -1,0 +1,9 @@
+{
+  "_comment": "Initial thresholds, deliberately guessed (see closed-loop-design.md section 3-1). Revisit after the first month of real data — do not trust these numbers as-is.",
+  "no_index_days": 14,
+  "zero_signal_days": 30,
+  "archive_days": 60,
+  "min_rating_count_for_sibling": 20,
+  "min_rating_for_sibling": 4.0,
+  "new_items_per_week_cap": 3
+}

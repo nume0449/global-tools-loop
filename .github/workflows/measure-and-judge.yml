@@ -1,0 +1,56 @@
+name: Measure and judge
+
+on:
+  schedule:
+    - cron: "0 21 * * *" # 06:00 JST daily
+  workflow_dispatch: {}
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check kill switch
+        run: |
+          enabled=$(node -e "console.log(require('./loop/kill-switch.json').enabled)")
+          if [ "$enabled" != "true" ]; then
+            echo "Kill switch is off (loop/kill-switch.json). Stopping." >&2
+            exit 1
+          fi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node scripts/fetch-public-stats.js
+      - run: node scripts/judge.js
+      - name: Commit updated stats/decisions
+        run: |
+          git config user.name "global-tools-loop-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add stats loop/decisions.json
+          git diff --cached --quiet || git commit -m "chore: daily stats + judge $(date -u +%F)"
+          git push
+      - name: Open an issue for any non-hold decision
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node -e '
+            const fs = require("fs");
+            const { decisions } = JSON.parse(fs.readFileSync("loop/decisions.json", "utf8"));
+            for (const d of decisions) {
+              if (d.action === "hold" || d.action === "skip") continue;
+              console.log(d.name + ":" + d.action + ":" + d.reason);
+            }
+          ' | while IFS=: read -r name action reason; do
+            [ -z "$name" ] && continue
+            gh issue create \
+              --title "[judge] $name -> $action" \
+              --body "Reason: $reason
+
+Judged at: $(date -u --iso-8601=seconds)
+
+This issue was opened automatically by measure-and-judge.yml. @claude please act on the '$action' per closed-loop-design.md section 3-1, then close this issue in the same PR." \
+              --label "loop-decision"
+          done

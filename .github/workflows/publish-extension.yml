@@ -1,0 +1,49 @@
+name: Publish extension to Chrome Web Store
+
+# Manual only, on purpose: publishing costs real reputation/ranking, and the
+# first submission for a new item MUST be done by hand anyway (Google
+# requires a human to complete the initial listing). This workflow is for
+# UPDATES to an already-published item.
+on:
+  workflow_dispatch:
+    inputs:
+      extension:
+        description: "Directory name under extensions/ to publish"
+        required: true
+        type: string
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install
+      - run: node scripts/validate-manifests.js
+      - run: npm test
+      - run: node scripts/package-extensions.js
+      - name: Read web_store_id
+        id: meta
+        run: |
+          id=$(node -e "console.log(require('./extensions/${{ inputs.extension }}/store.json').web_store_id || '')")
+          if [ -z "$id" ]; then
+            echo "No web_store_id set in extensions/${{ inputs.extension }}/store.json — do the first submission by hand, then fill this in." >&2
+            exit 1
+          fi
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+      - name: Upload + publish via chrome-webstore-upload-cli
+        env:
+          EXTENSION_ID: ${{ steps.meta.outputs.id }}
+          CLIENT_ID: ${{ secrets.CWS_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CWS_CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.CWS_REFRESH_TOKEN }}
+        run: |
+          npx chrome-webstore-upload-cli@3 upload \
+            --source "dist/${{ inputs.extension }}"*.zip \
+            --extension-id "$EXTENSION_ID" \
+            --client-id "$CLIENT_ID" \
+            --client-secret "$CLIENT_SECRET" \
+            --refresh-token "$REFRESH_TOKEN" \
+            --auto-publish

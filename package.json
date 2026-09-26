@@ -1,0 +1,12 @@
+{
+  "name": "global-tools-loop",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Unattended build->verify->deploy->measure->judge loop for Chrome extensions and free tools.",
+  "scripts": {
+    "test": "node --test extensions/*/test/*.test.js"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.0"
+  }
+}
