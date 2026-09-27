@@ -45,12 +45,10 @@ jobs:
             }
           ' | while IFS=: read -r name action reason; do
             [ -z "$name" ] && continue
+            body=$(printf 'Reason: %s\n\nJudged at: %s\n\nThis issue was opened automatically by measure-and-judge.yml. @claude please act on the %s per closed-loop-design.md section 3-1, then close this issue in the same PR.' \
+              "$reason" "$(date -u --iso-8601=seconds)" "$action")
             gh issue create \
               --title "[judge] $name -> $action" \
-              --body "Reason: $reason
-
-Judged at: $(date -u --iso-8601=seconds)
-
-This issue was opened automatically by measure-and-judge.yml. @claude please act on the '$action' per closed-loop-design.md section 3-1, then close this issue in the same PR." \
+              --body "$body" \
               --label "loop-decision"
           done
