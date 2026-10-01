@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>How to Brew Better Pour-Over Coffee</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; background: #F3F4F6; }
+  .bar { height: 64px; background: #111827; color: #fff; display: flex; align-items: center; padding: 0 28px; font-size: 20px; font-weight: 600; letter-spacing: .2px; }
+  .bar span { color: #9CA3AF; font-weight: 400; margin-left: 14px; font-size: 16px; }
+  .wrap { display: flex; gap: 20px; padding: 20px 28px; height: 736px; }
+  .pane { flex: 1; background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.12); overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+  .label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #6B7280; padding: 12px 20px; border-bottom: 1px solid #E5E7EB; background: #F9FAFB; }
+  .page { padding: 0; overflow: hidden; flex: 1; position: relative; }
+  .site-nav { background: #7C2D12; color: #FED7AA; padding: 10px 20px; font-size: 13px; display: flex; gap: 18px; }
+  .ad-banner { margin: 12px 20px; padding: 14px; background: #FEF3C7; border: 1px dashed #D97706; color: #92400E; font-size: 13px; text-align: center; }
+  .cols { display: flex; gap: 16px; padding: 0 20px; }
+  article { flex: 1; min-width: 0; }
+  article h1 { font-size: 24px; margin: 6px 0 10px; color: #111827; line-height: 1.25; }
+  article h2 { font-size: 17px; margin: 14px 0 6px; color: #111827; }
+  article p, article li { font-size: 14px; line-height: 1.55; color: #374151; margin: 0 0 8px; }
+  article ul { margin: 0 0 8px; padding-left: 20px; }
+  .sidebar { width: 130px; font-size: 12px; color: #6B7280; }
+  .sidebar div { background: #F3F4F6; padding: 8px; margin-bottom: 8px; border-radius: 4px; }
+  .toast { position: absolute; bottom: 20px; right: 20px; background: #111827; color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 14px; box-shadow: 0 4px 16px rgba(0,0,0,.25); }
+  pre { margin: 0; padding: 18px 20px; font: 13px/1.6 "SF Mono", Menlo, Consolas, monospace; color: #111827; white-space: pre-wrap; word-break: break-word; overflow: hidden; flex: 1; }
+</style>
+</head>
+<body>
+<div class="bar">CleanCopy <span>One click: any page &rarr; clean Markdown in your clipboard</span></div>
+<div class="wrap">
+  <div class="pane">
+    <div class="label">Before &mdash; the web page</div>
+    <div class="page" id="page">
+      <nav class="site-nav"><a>Home</a><a>Recipes</a><a>Gear</a><a>Subscribe</a></nav>
+      <div class="ad-banner ads">ADVERTISEMENT &middot; 50% off espresso machines today only</div>
+      <div class="cols">
+        <article>
+          <h1>How to Brew Better Pour-Over Coffee</h1>
+          <p>Pour-over rewards <strong>patience and consistency</strong>. A few small changes make a bigger difference than expensive gear.</p>
+          <h2>What you need</h2>
+          <ul>
+            <li>20 g of freshly ground coffee</li>
+            <li>320 g of water at 94&deg;C</li>
+            <li>A paper filter and a gooseneck kettle</li>
+          </ul>
+          <h2>The method</h2>
+          <p>Rinse the filter, then bloom the grounds with 40 g of water for 30 seconds. Pour the rest in slow circles and aim to finish in about three minutes. See the <a href="https://example.com/grind-guide">grind size guide</a> if your brew tastes bitter.</p>
+        </article>
+        <div class="sidebar related">
+          <div>Related: 10 best mugs</div>
+          <div>Sign up for our newsletter</div>
+          <div>Share on social</div>
+        </div>
+      </div>
+      <div class="toast">Copied page as Markdown &#10003;</div>
+    </div>
+  </div>
+  <div class="pane">
+    <div class="label">After &mdash; pasted from clipboard</div>
+    <pre id="out"></pre>
+  </div>
+</div>
+<script src="../../extensions/cleancopy/lib/extract.js"></script>
+<script>
+  // Real extraction logic from the extension, run against the left pane.
+  var root = document.querySelector("#page article");
+  document.getElementById("out").textContent =
+    self.CleanCopyExtract.extractMarkdown(document, { root: root });
+</script>
+</body>
+</html>

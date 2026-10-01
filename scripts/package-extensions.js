@@ -18,10 +18,10 @@ for (const name of fs.readdirSync(extDir)) {
   const outFile = path.join(distDir, `${name}-${manifest.version}.zip`);
   fs.rmSync(outFile, { force: true });
   // `zip -r` is present on macOS/Linux GitHub Actions runners by default.
-  // Exclude dev-only files (tests) from the Store package.
+  // Exclude dev-only files (tests, loop metadata) from the Store package.
   execFileSync(
     "zip",
-    ["-r", outFile, ".", "-x", "test/*", "-x", "*.test.js"],
+    ["-r", outFile, ".", "-x", "test/*", "-x", "*.test.js", "-x", "store.json", "-x", ".DS_Store"],
     { cwd: dir, stdio: "inherit" }
   );
   console.log(`Packaged ${name} -> ${path.relative(root, outFile)}`);
