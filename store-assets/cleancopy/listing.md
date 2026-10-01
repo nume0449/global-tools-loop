@@ -60,12 +60,12 @@ CleanCopy does not work on browser-internal pages (such as chrome:// pages) or t
 - **clipboardWrite justification**:
   Used to write the generated Markdown text to the user's clipboard, which is the extension's core function.
 - **Remote code**: No, I am not using remote code. All JavaScript is packaged with the extension.
-- **Data usage**: none of the listed data types are collected.
+- **Data usage**: "Website content" only. The page's text and links are read locally to build the Markdown; nothing leaves the device. (Chrome's User Data FAQ requires disclosure even for local-only processing.)
 - **Certifications** (all three true for this extension):
   - Does not sell or transfer user data to third parties outside approved use cases
   - Does not use or transfer user data for purposes unrelated to the single purpose
   - Does not use or transfer user data to determine creditworthiness or for lending
-- **Privacy policy URL**: not required (no user data handled).
+- **Privacy policy URL**: https://github.com/nume0449/global-tools-loop/blob/main/store-assets/cleancopy/PRIVACY.md
 
 ## Distribution
 
