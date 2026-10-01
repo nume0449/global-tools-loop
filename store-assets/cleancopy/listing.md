@@ -7,7 +7,7 @@ later edit or a sibling extension can reuse it.
 
 - **Title** (from manifest): CleanCopy — Copy Page as Markdown
 - **Summary** (from manifest, max 132 chars):
-  Copy the readable content of any page as clean Markdown — perfect for pasting into ChatGPT, Claude, or your notes. One click, no ads, no nav clutter.
+  Copy any page's readable content as clean Markdown in one click. Great for pasting into ChatGPT, Claude or your notes.
 - **Category**: Tools (fallback: Workflow & Planning)
 - **Language**: English
 - **Screenshot**: `screenshot-1280x800.png`

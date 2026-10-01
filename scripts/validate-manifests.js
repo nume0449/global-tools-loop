@@ -36,6 +36,15 @@ for (const name of fs.readdirSync(extDir)) {
       failures++;
     }
   }
+  // Chrome Web Store rejects the upload outright beyond these limits.
+  if (typeof manifest.description === "string" && manifest.description.length > 132) {
+    console.error(`[${name}] description is ${manifest.description.length} chars (Chrome Web Store limit: 132)`);
+    failures++;
+  }
+  if (typeof manifest.name === "string" && manifest.name.length > 75) {
+    console.error(`[${name}] name is ${manifest.name.length} chars (Chrome Web Store limit: 75)`);
+    failures++;
+  }
   if (manifest.manifest_version !== 3) {
     console.error(`[${name}] must use manifest_version 3`);
     failures++;

@@ -3,7 +3,7 @@
   "name": "CleanCopy — Copy Page as Markdown",
   "short_name": "CleanCopy",
   "version": "0.1.0",
-  "description": "Copy the readable content of any page as clean Markdown — perfect for pasting into ChatGPT, Claude, or your notes. One click, no ads, no nav clutter.",
+  "description": "Copy any page's readable content as clean Markdown in one click. Great for pasting into ChatGPT, Claude or your notes.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
