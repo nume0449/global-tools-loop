@@ -17,7 +17,12 @@
     },
     "default_title": "Copy page as Markdown"
   },
-  "permissions": ["activeTab", "scripting"],
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "offscreen",
+    "clipboardWrite"
+  ],
   "background": {
     "service_worker": "background.js"
   },
