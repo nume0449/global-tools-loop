@@ -1,6 +1,6 @@
 {
-  "web_store_id": null,
+  "web_store_id": "laadcjelmjlgghhneocjpechjhgdmnlk",
   "web_store_url": null,
   "published_at": null,
-  "note": "web_store_id is filled in by hand after the first manual submission (see README section 2). Until then, measurement scripts skip this extension."
+  "note": "Draft created 2026-10-01 (listing + privacy tabs saved, not yet submitted). web_store_url and published_at stay null until the item is public; measurement scripts skip this extension until then."
 }

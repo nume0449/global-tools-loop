@@ -71,6 +71,27 @@ mainは保護されているため、日次の計測結果（`stats/`と`loop/de
   現時点では**あえて設定していない**。最初の数回は人が見てからマージすることを推奨）。
 - llms.txtやAI検索経由の効果測定は未実装。
 
+- **新規パブリッシャーは公開できる拡張が2個まで。** 上限に達したらダッシュボードから引き上げを申請する。審査基準は
+  「公開中の拡張の継続的な利用」と「アカウントの利用期間・活動実績」で、多数を一気に出す運用はできない
+  （https://developer.chrome.com/docs/webstore/publish/#item_limits）。
+- 端末内だけで処理するデータも、ストアのプライバシー申告の対象になる（CleanCopyは「ウェブサイトのコンテンツ」を申告し、
+  プライバシーポリシーを `store-assets/cleancopy/PRIVACY.md` に置いた）。
+
+## 4-1. ダッシュボード操作の自動化
+
+Developer Dashboard は拡張機能（Claude in Chrome）からは操作できないが、CDP経由の agent-browser なら操作できる。
+専用プロファイル `~/.agent-browser/profiles/cws-publisher` にGoogleログイン済みのセッションを保持している。
+
+```bash
+agent-browser --session cws --headed \
+  --executable-path "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --profile ~/.agent-browser/profiles/cws-publisher \
+  --args "--disable-blink-features=AutomationControlled" \
+  open "https://chrome.google.com/webstore/devconsole"
+```
+
+掲載情報に入力する文面は `store-assets/<name>/listing.md` を正とする。
+
 ## 5. ローカルでの動作確認
 
 ```bash
