@@ -58,6 +58,7 @@
 
 `loop/judge-rules.json` に初期値。すべて仮置きの数値で、最初の1ヶ月の実測後に見直す。
 判定結果は `loop/decisions.json` に出力され、`hold`/`skip`以外は自動でissueが起票される。
+mainは保護されているため、日次の計測結果（`stats/`と`loop/decisions.json`）は保護なしの`loop-state`ブランチに保存される。
 
 ## 4. 既知の限界（正直に書く）
 

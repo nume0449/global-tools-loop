@@ -23,15 +23,27 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      # main is protected (PRs only), so loop state lives on the unprotected
+      # `loop-state` branch: main's tree plus one commit holding stats/ and
+      # loop/decisions.json. Restore yesterday's stats before appending.
+      - name: Restore previous loop state
+        run: |
+          if git fetch origin loop-state 2>/dev/null; then
+            git checkout FETCH_HEAD -- stats 2>/dev/null || echo "no stats on loop-state yet"
+          else
+            echo "loop-state branch does not exist yet"
+          fi
       - run: node scripts/fetch-public-stats.js
       - run: node scripts/judge.js
-      - name: Commit updated stats/decisions
+      - name: Save loop state to the loop-state branch
         run: |
           git config user.name "global-tools-loop-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add stats loop/decisions.json
-          git diff --cached --quiet || git commit -m "chore: daily stats + judge $(date -u +%F)"
-          git push
+          git checkout -B loop-state
+          mkdir -p stats
+          git add -A stats loop/decisions.json
+          git commit --allow-empty -m "chore: loop state $(date -u +%F)"
+          git push --force origin loop-state
       - name: Open an issue for any non-hold decision
         env:
           GH_TOKEN: ${{ github.token }}
