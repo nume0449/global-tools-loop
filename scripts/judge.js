@@ -18,22 +18,21 @@ function daysSince(dateStr) {
 }
 
 function judgeOne(name, meta, history) {
-  if (!meta.web_store_url) {
-    return { name, action: "skip", reason: "not yet published" };
-  }
   if (history.length === 0) {
-    return { name, action: "skip", reason: "no stats collected yet" };
+    return { name, action: "skip", reason: meta.web_store_id ? "in review or no stats yet" : "not yet submitted" };
   }
-  const publishedDays = meta.published_at ? daysSince(meta.published_at) : null;
+  // published_at falls back to the first day a public snapshot was recorded.
+  const publishedAt = meta.published_at || history[0].date;
+  const publishedDays = daysSince(publishedAt);
   const latest = history[history.length - 1];
   const hasAnySignal = history.some(
     (h) => (h.rating_count && h.rating_count > 0) || h.user_count_text
   );
 
-  if (publishedDays !== null && publishedDays >= rules.archive_days && !hasAnySignal) {
+  if (publishedDays >= rules.archive_days && !hasAnySignal) {
     return { name, action: "archive", reason: `${publishedDays}d published, zero signal ever` };
   }
-  if (publishedDays !== null && publishedDays >= rules.zero_signal_days && !hasAnySignal) {
+  if (publishedDays >= rules.zero_signal_days && !hasAnySignal) {
     return { name, action: "rewrite_listing", reason: `${publishedDays}d published, zero signal` };
   }
   if (
