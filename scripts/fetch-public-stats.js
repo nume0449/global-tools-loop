@@ -22,6 +22,13 @@ function parseCount(text) {
   return /K$/i.test(t) ? Math.round(parseFloat(t) * 1000) : Number(t);
 }
 
+// The listing page ends with a "Related" carousel of other extensions, each
+// with its own "Average rating …". Only the part before it is this item's.
+function ownSection(html) {
+  const i = html.indexOf(">Related<");
+  return i > 0 ? html.slice(0, i) : html;
+}
+
 async function main() {
   const names = fs.readdirSync(extDir).filter((n) =>
     fs.statSync(path.join(extDir, n)).isDirectory()
@@ -71,6 +78,7 @@ async function main() {
 
     // These regexes are best-effort against the public listing's rendered
     // text and WILL need occasional repair if Google changes markup.
+    html = ownSection(html);
     const ratingMatch = html.match(/Average rating ([\d.]+) out of 5/);
     const ratingCountMatch = html.match(/>([\d.,]+K?) ratings?</);
     const userCountMatch = html.match(/([\d,]+)\+?\s*users?/i);
@@ -101,4 +109,4 @@ if (require.main === module) main().catch((err) => {
   process.exit(1);
 });
 
-module.exports = { parseCount };
+module.exports = { parseCount, ownSection };
