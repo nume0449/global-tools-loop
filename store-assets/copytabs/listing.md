@@ -13,33 +13,15 @@
 ### Description
 
 ```
-CopyTabs copies the titles and links of all your open tabs in one click, in the format you need.
+CopyTabs copies the titles and links of your open tabs in one click.
 
-Open the CopyTabs popup (or press Alt+Shift+C), pick a format, and click Copy. Your tabs are on the clipboard, ready to paste into notes, a chat, an email, a spreadsheet or an AI assistant.
+Open the popup (or press Alt+Shift+C), choose an output style and click Copy. The result is on your clipboard, ready to paste into your notes, a chat, an email or a spreadsheet. Several output styles are available, from Markdown and plain links to HTML and CSV, and a live preview shows exactly what will be copied.
 
-FORMATS
-• Markdown links — [Title](https://…)
-• Markdown list — - [Title](https://…)
-• URLs only — one per line
-• Title + URL
-• HTML links
-• CSV (title, url) — opens straight in Excel or Google Sheets
-• JSON
+You can copy the current window, every window, or only the tabs you have selected. Browser pages such as the settings page can be skipped, and duplicate tabs are removed automatically.
 
-CHOOSE WHICH TABS
-• This window, all windows, or only the tabs you have selected
-• Skip browser pages such as chrome://settings
-• Remove duplicate tabs automatically
-• A live preview shows exactly what will be copied
+CopyTabs also works in reverse: paste any text that contains links and it opens each one in a new tab or a new window. This makes it easy to restore a research session or share a set of tabs with a teammate.
 
-REOPEN A LIST
-Paste any text that contains links — a plain list, a Markdown list, HTML or CSV — and CopyTabs opens every link it finds in new tabs (or a new window). Great for restoring a research session or sharing a set of tabs with a teammate.
-
-PRIVATE BY DESIGN
-• Runs entirely in your browser
-• No account, no servers, no analytics, no tracking
-• Tab titles and URLs are only read when you open the popup, and they never leave your device
-• Your format choices are saved locally so the popup remembers them
+Privacy: CopyTabs runs entirely in your browser. There is no account, no server, no analytics and no tracking. Tab titles and links are read only when you open the popup, and they never leave your device. Your preferences are saved locally.
 ```
 
 ## Privacy practices
@@ -58,3 +40,7 @@ PRIVATE BY DESIGN
 ## Distribution
 
 - Free, public, all regions. Auto-publish after review.
+
+## Review history
+
+- 2026-10-08: rejected for keyword spam (ref Yellow Argon). The bullet list of output formats was flagged. Rewrote the description as prose without a format list or third-party brand names, and resubmitted.
