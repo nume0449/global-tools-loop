@@ -1,0 +1,60 @@
+:root {
+  --bg: #ffffff;
+  --fg: #111827;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --field: #f9fafb;
+  --accent: #2563eb;
+  --accent-fg: #ffffff;
+  --ok: #047857;
+  --err: #b91c1c;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111827;
+    --fg: #f3f4f6;
+    --muted: #9ca3af;
+    --line: #374151;
+    --field: #1f2937;
+    --accent: #3b82f6;
+    --ok: #34d399;
+    --err: #f87171;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  width: 360px;
+  margin: 0;
+  padding: 12px 14px 14px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+header strong { font-size: 15px; }
+nav { display: flex; gap: 4px; }
+nav button {
+  border: 1px solid var(--line); background: transparent; color: var(--muted);
+  padding: 4px 10px; border-radius: 6px; cursor: pointer; font: inherit;
+}
+nav button[aria-selected="true"] { color: var(--fg); background: var(--field); font-weight: 600; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 6px 0; }
+select {
+  width: 200px; padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px;
+  background: var(--field); color: var(--fg); font: inherit;
+}
+.check { display: flex; align-items: center; gap: 6px; margin: 4px 0; color: var(--muted); }
+button.primary {
+  width: 100%; margin: 10px 0 8px; padding: 8px; border: 0; border-radius: 6px;
+  background: var(--accent); color: var(--accent-fg); font: 600 13px/1.2 inherit; cursor: pointer;
+}
+button.primary:disabled { opacity: .5; cursor: default; }
+textarea {
+  width: 100%; height: 150px; padding: 8px; resize: vertical;
+  border: 1px solid var(--line); border-radius: 6px; background: var(--field); color: var(--fg);
+  font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.hint { margin: 0 0 8px; color: var(--muted); }
+#status { min-height: 18px; margin-top: 4px; font-weight: 600; }
+#status.ok { color: var(--ok); }
+#status.err { color: var(--err); }
