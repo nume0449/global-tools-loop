@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>CopyTabs demo</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; background: #EEF2FF;
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; color: #111827; }
+  .top { padding: 34px 48px 0; }
+  .top h1 { margin: 0; font-size: 34px; letter-spacing: -.3px; }
+  .top p { margin: 8px 0 0; font-size: 18px; color: #4B5563; }
+  .stage { display: flex; gap: 40px; padding: 28px 48px; align-items: flex-start; }
+  .browser { width: 640px; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(30,41,59,.15); overflow: hidden; }
+  .tabs { display: flex; gap: 4px; padding: 10px 10px 0; background: #E5E7EB; }
+  .tab { flex: 1; min-width: 0; background: #F3F4F6; border-radius: 8px 8px 0 0; padding: 8px 10px; font-size: 12px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #374151; }
+  .tab.on { background: #fff; }
+  .bar { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid #E5E7EB; }
+  .url { flex: 1; background: #F3F4F6; border-radius: 16px; padding: 6px 14px; font-size: 13px; color: #6B7280; }
+  .ext { width: 26px; height: 26px; border-radius: 6px; background: url(../../extensions/copytabs/icons/icon48.png) center/cover; outline: 3px solid #93C5FD; }
+  .body { position: relative; height: 520px; background: linear-gradient(#fff, #F9FAFB); }
+  .popup { position: absolute; right: 10px; top: 6px; width: 360px; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 12px 32px rgba(0,0,0,.25); }
+  .popup img { display: block; width: 360px; height: auto; }
+  .notes { flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(30,41,59,.15); overflow: hidden; }
+  .notes h2 { margin: 0; padding: 14px 18px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #6B7280; border-bottom: 1px solid #E5E7EB; }
+  .notes pre { margin: 0; padding: 18px; font: 14px/1.7 ui-monospace, Menlo, monospace; white-space: pre-wrap; word-break: break-word; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 18px 18px; }
+  .chips span { background: #EFF6FF; color: #1D4ED8; border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 600; }
+</style></head><body>
+<div class="top"><h1>Copy every open tab in one click</h1><p>Markdown links, plain URLs, HTML, CSV or JSON. Paste a list later to reopen them all.</p></div>
+<div class="stage">
+  <div class="browser">
+    <div class="tabs"><div class="tab on">Markdown - Wikipedia</div><div class="tab">Clipboard API - Web APIs | MDN</div><div class="tab">Hacker News</div><div class="tab">RFC 9110: HTTP Semantics</div><div class="tab">Hyperlink - Wikipedia</div></div>
+    <div class="bar"><div class="url">en.wikipedia.org/wiki/Markdown</div><div class="ext"></div></div>
+    <div class="body"><div class="popup"><img src="popup-2x.png" alt=""></div></div>
+  </div>
+  <div class="notes">
+    <h2>Pasted into your notes</h2>
+    <pre id="out"></pre>
+    <div class="chips"><span>Markdown</span><span>URLs</span><span>HTML</span><span>CSV</span><span>JSON</span><span>Reopen list</span></div>
+  </div>
+</div>
+<script src="../../extensions/copytabs/lib/format.js"></script>
+<script>
+  var tabs = [
+    { title: "Markdown - Wikipedia", url: "https://en.wikipedia.org/wiki/Markdown" },
+    { title: "Clipboard API - Web APIs | MDN", url: "https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API" },
+    { title: "Hacker News", url: "https://news.ycombinator.com/" },
+    { title: "RFC 9110: HTTP Semantics", url: "https://www.rfc-editor.org/rfc/rfc9110.html" },
+    { title: "Hyperlink - Wikipedia", url: "https://en.wikipedia.org/wiki/Hyperlink" }
+  ];
+  document.getElementById("out").textContent = self.CopyTabsFormat.formatTabs(tabs, "markdownList");
+</script>
+</body></html>

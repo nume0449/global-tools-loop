@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "CopyTabs — Copy All Tab URLs as Markdown",
+  "short_name": "CopyTabs",
+  "version": "0.1.0",
+  "description": "Copy every open tab as Markdown links, plain URLs, HTML or CSV in one click. Paste a list to reopen them all.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Copy all tab URLs",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": { "default": "Alt+Shift+C" },
+      "description": "Open CopyTabs"
+    }
+  },
+  "permissions": ["tabs", "storage"],
+  "minimum_chrome_version": "116"
+}
