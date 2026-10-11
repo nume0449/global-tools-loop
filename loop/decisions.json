@@ -1,10 +1,15 @@
 {
-  "judged_at": "2026-09-27T17:24:13.164Z",
+  "judged_at": "2026-10-11T00:10:34.694Z",
   "decisions": [
     {
       "name": "cleancopy",
-      "action": "skip",
-      "reason": "not yet published"
+      "action": "hold",
+      "reason": "no threshold crossed yet"
+    },
+    {
+      "name": "copytabs",
+      "action": "hold",
+      "reason": "no threshold crossed yet"
     }
   ]
 }
